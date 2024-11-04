@@ -1,4 +1,5 @@
 import re
+import time
 class user:
     def __init__(self,userid,username,email):
         self.userid=userid
@@ -65,7 +66,7 @@ class userDatabase:
         while True:
             while not (newEmail := input("Enter your new Email-ID:-")):
                 print("(Email ID cannot be empty)")
-            if re.match(r"^[a-zA-Z0-9]+(?:[._-][a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,}$",newEmail):
+            if re.match(r"^[a-zA-Z0-9]+(?:[._-][a-zA-Z0-9]+)*@[a-zA-Z]+(?:-[a-zA-Z]+)*\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$",newEmail):
                 for val_user in self.userlist:
                     if val_user.email == newEmail:
                         print(f"(Email ID '{newEmail}' already exists. Enter a unique Email ID)")
@@ -97,6 +98,7 @@ class userDatabase:
 
             else:
                 print("userID not found")
+
         #userName
         elif purpose=="2":
             id_two = input("\nMain menu->Update->User Name\nEnter your userId:-")
@@ -132,6 +134,7 @@ class userDatabase:
             return
         if input(f"Enter the option\n 1.Delete all the user\n 2.Delete a particular user\n Enter your choice>>>") == "1":
             if input(f"(Are you sure? you want to delete all the users from user database?)\nEnter 1.Confirm or 2.Cancel>>>") == "2":
+                print("(Action revoked!)")
                 return
             self.userlist.clear()
             print("(Successfully deleted all user records. The Database is now empty.)")
@@ -140,6 +143,7 @@ class userDatabase:
         for user in self.userlist:
             if user.userid==id:
                 if input(f"(Are you sure? you want to delete {user.userid} from user database?)\nEnter 1.Confirm or 2.Cancel>>>")=="2":
+                    print("(Action revoked!)")
                     return
                 self.userlist.remove(user)
                 print("(User removed from Database!)")
@@ -157,12 +161,12 @@ class userDatabase:
                 print(i)
                 break
         else:
-            print("user ID not Found")
+            print("(user ID not Found)")
     def listall(self):
+        print("\nMain menu->View user DataBase")
         if self.userlist == []:
             print("(user Database is empty:!)")
             return
-        print("\nMain menu->View user DataBase")
         for i in self.userlist:
             print(i)
 #preloaded users:
@@ -173,11 +177,11 @@ us=userDatabase()
 us.insert(sundar)
 us.insert(muthu)
 us.insert(jeeva)
+#start line.
 options={1:"us.insert()",2:"us.find()",3:"us.delete()",4:"us.update()",5:"us.listall()",6:"6"}
 print(f'\nUser DataBase')
 n="start"
 while n!="6":
-
     print(f'\nMAIN MENU\nChoose the operation Below\n 1.Insert\n 2.Find\n 3.Delete\n 4.Update\n 5.View user DataBase\n 6.Exit')
     try:
         choice=int(input(" Enter your Choice>>>"))
