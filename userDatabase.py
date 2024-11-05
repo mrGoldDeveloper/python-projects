@@ -23,14 +23,14 @@ class userDatabase:
         else:
             #creating a new user
             print("\nMain menu->Insert user")
-            UID = self.userid_validate()
-            if not UID:
+            user_id = self.userid_validate()
+            if not user_id:
                 return
-            UNAME = self.username_validate()
-            UEMAIL = self.useremail_validate()
-            if not UEMAIL:
+            user_name = self.username_validate()
+            user_email = self.useremail_validate()
+            if not user_email:
                 return
-            new_user=user(UID,UNAME,UEMAIL)
+            new_user=user(user_id,user_name,user_email)
             self.insert(new_user)
             print("(User successfully added to the database!)")
 
@@ -76,7 +76,7 @@ class userDatabase:
                 print("(Invalid email format. Please try again!)")
 
     def update(self):
-        if self.userlist == []:
+        if not self.userlist:
             print("(user Database is empty:!)")
             return
         purpose=input("\nMain Menu->Update\nSelect what you want to update:\n 1.User ID\n 2.Username\n 3.Email\n 4.Main Menu\n Enter your choice>>>")
@@ -124,7 +124,7 @@ class userDatabase:
 
     def delete(self):
         print("\nMain menu->Delete User")
-        if self.userlist == []:
+        if not self.userlist:
             print("(user Database is empty:!)")
             return
         options= input(f"Enter the option\n 1.Delete all users\n 2.Delete a specific user\n Enter your choice>>>")
@@ -139,9 +139,9 @@ class userDatabase:
                     print("(Invalid option. Returning to main menu.)")
 
         elif options=="2":
-            id = input("Enter the user ID to delete:-")
+            user_id = input("Enter the user ID to delete:-")
             for user in self.userlist:
-                if user.userid==id:
+                if user.userid==user_id:
                     op= input(f"(Are you sure you want to delete '{user.userid}' from the database?)\nEnter 1.Confirm or 2.Cancel>>>")
                     if op=="1":
                         self.userlist.remove(user)
@@ -157,7 +157,7 @@ class userDatabase:
             print("(invalid option. Returning to the main menu.)")
 
     def find(self):
-        if self.userlist == []:
+        if not self.userlist:
             print("(user Database is empty:!)")
             return
         data=input("\nMain menu->Find user\nEnter UserID:-")
@@ -170,7 +170,7 @@ class userDatabase:
 
     def listall(self):
         print("\nMain menu->View user DataBase")
-        if self.userlist == []:
+        if not self.userlist:
             print("(user Database is empty!)")
             return
         for i in self.userlist:
