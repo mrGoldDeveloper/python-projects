@@ -1,5 +1,5 @@
 import re
-class user:
+class User:
     def __init__(self,userid,username,email):
         self.userid=userid
         self.username=username
@@ -7,7 +7,7 @@ class user:
     def __str__(self):
         return f'UserID={self.userid}, Username={self.username}, Email={self.email}'
 
-class userDatabase:
+class Userdatabase:
     def __init__(self):
         self.userlist=[]
 
@@ -30,7 +30,7 @@ class userDatabase:
             user_email = self.useremail_validate()
             if not user_email:
                 return
-            new_user=user(user_id,user_name,user_email)
+            new_user=User(user_id,user_name,user_email)
             self.insert(new_user)
             print("(User successfully added to the database!)")
 
@@ -38,7 +38,6 @@ class userDatabase:
         while True:
             name = input("Enter your real name: ").strip()
 
-            # Regex for alphabetic characters and spaces, between 2 to 50 characters
             if re.match("^[A-Za-z ]{2,50}$", name):
                 name = ["".join(i.capitalize()) for i in name.split(" ")]
                 return " ".join(name)
@@ -82,7 +81,7 @@ class userDatabase:
         purpose=input("\nMain Menu->Update\nSelect what you want to update:\n 1.User ID\n 2.Username\n 3.Email\n 4.Main Menu\n Enter your choice>>>")
         #userID
         if purpose=="1":
-            id_one=input("\nMain menu->Update->User ID\nEnter your userId:-")
+            id_one=input("\nMain menu->Update->User ID\nEnter current userId to update userID:-")
             for i in self.userlist:
                 if i.userid == id_one:
                     new=self.userid_validate()
@@ -95,7 +94,7 @@ class userDatabase:
                 print("(User ID not found.)")
         #userName
         elif purpose=="2":
-            id_two = input("\nMain menu->Update->User Name\nEnter your userId:-")
+            id_two = input("\nMain menu->Update->User Name\nEnter userId to update name:-")
             for i in self.userlist:
                 if i.userid == id_two:
                     i.username = self.username_validate()
@@ -105,7 +104,7 @@ class userDatabase:
                 print("userID not found")
         #Email
         elif purpose=="3":
-            id_three = input("\nMain menu->Update->Email\nEnter your userId:-")
+            id_three = input("\nMain menu->Update->Email\nEnter userId to update email:-")
             for i in self.userlist:
                 if i.userid == id_three:
                     new=self.useremail_validate()
@@ -160,7 +159,7 @@ class userDatabase:
         if not self.userlist:
             print("(user Database is empty:!)")
             return
-        data=input("\nMain menu->Find user\nEnter UserID:-")
+        data=input("\nMain menu->Find user\nEnter UserID to find:-")
         for i in self.userlist:
             if i.userid == data:
                 print(i)
@@ -178,22 +177,22 @@ class userDatabase:
 
 
 #preloaded users:
-muthu=user("muthu@123","Muthu","muthu@gmail.com")
-sundar=user("sundar@123","Sundar","sundar@gmail.com")
-jeeva=user("jeeva@123","Jeeva","jeeva@gmail.com")
-us=userDatabase()
+muthu=User("muthu@123","Muthu","muthu@gmail.com")
+sundar=User("sundar@123","Sundar","sundar@gmail.com")
+jeeva=User("jeeva@123","Jeeva","jeeva@gmail.com")
+us=Userdatabase()
 us.insert(sundar)
 us.insert(muthu)
 us.insert(jeeva)
 
 #start line.
 options={1:us.insert,2:us.find,3:us.delete,4:us.update,5:us.listall}
-print(f'\nUser DataBase')
+print(f'\nSimple User DataBase')
 
 while True:
     print(f'\nMAIN MENU\nChoose the operation below:\n 1.Insert\n 2.Find\n 3.Delete\n 4.Update\n 5.View user DataBase\n 6.Exit')
     try:
-        choice=int(input(" Enter your Choice>>>"))
+        choice=int(input(" Enter your Choice(1 to 6)>>>"))
         if choice==6:
             print("(Exiting program.)")
             break
